@@ -49,3 +49,16 @@ function playRPS( playerChoiceRaw, computerChoice )
     return `You ${winStatus}! ${winHand} beats ${lostHand}`;
     // return win status, player hand, computer hand.
 }
+
+function game()
+{
+    for (iii = 0; iii < 5; ++iii)
+    {
+        console.log( 
+            playRPS( prompt(), getComputerChoice() )
+        );
+    }
+}
+
+
+game();
