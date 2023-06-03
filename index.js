@@ -17,37 +17,30 @@ function playRPS( playerChoiceRaw, computerChoice )
     if (playerChoice === computerChoice)
     return `You Draw! You both chose ${playerChoice}`;
 
-    let winStatus = "Lose";
-    let winHand = computerChoice;
-    let lostHand = playerChoice;
+    let winStatus = false;
 
     switch(playerChoice)
     {
         case "Rock":
-            if (computerChoice === "Scissors") {
-                winStatus = "Win";
-                winHand = playerChoice;
-                lostHand = computerChoice;
-            }
+            if (computerChoice === "Scissors") 
+                winStatus = true;
             break;
         case "Paper":
-            if (computerChoice === "Rock") {
-                winStatus = "Win";
-                winHand = playerChoice;
-                lostHand = computerChoice;
-            }
+            if (computerChoice === "Rock") 
+                winStatus = true;
             break;
         case "Scissors":
-            if (computerChoice === "Paper") {
-                winStatus = "Win";
-                winHand = playerChoice;
-                lostHand = computerChoice;
-            }
+            if (computerChoice === "Paper") 
+                winStatus = true;
             break;
     }
-
-    return `You ${winStatus}! ${winHand} beats ${lostHand}`;
+    
     // return win status, player hand, computer hand.
+    if ( winStatus ) {
+        return `You Win! ${playerChoice} beats ${computerChoice}`;
+    } else {
+        return `You Lose! ${computerChoice} beats ${playerChoice}`;
+    }
 }
 
 function game()
@@ -61,4 +54,5 @@ function game()
 }
 
 
+// MAIN
 game();
