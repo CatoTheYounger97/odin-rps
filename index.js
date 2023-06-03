@@ -12,7 +12,7 @@ function getComputerChoice()
 function playRPS( playerChoiceRaw, computerChoice )
 {
     // fix case of player hand to have first letter capitalised
-    const playerChoice = playerChoiceRaw.charAt(0).toUpperCase() +  playerChoiceRaw.slice(1).toLowerCase()
+    const playerChoice = playerChoiceRaw.charAt(0).toUpperCase() +  playerChoiceRaw.slice(1).toLowerCase();
 
     if (playerChoice === computerChoice)
     return `You Draw! You both chose ${playerChoice}`;
