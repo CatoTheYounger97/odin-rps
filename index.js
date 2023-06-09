@@ -52,7 +52,3 @@ function game()
         );
     }
 }
-
-
-// MAIN
-game();
