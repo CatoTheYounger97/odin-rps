@@ -45,10 +45,19 @@ function playRPS( playerChoiceRaw, computerChoice )
 
 function game()
 {
-    for (iii = 0; iii < 5; ++iii)
-    {
-        console.log( 
-            playRPS( prompt(), getComputerChoice() )
-        );
-    }
+    const buttons = document.querySelectorAll("button");
+    
+    buttons.forEach( (button) => {
+        button.addEventListener('click', () => {
+
+            const displayResult = document.querySelector(".result")
+
+            displayResult.textContent = playRPS( button.textContent, getComputerChoice() ); 
+        });
+
+    });
+    
+
 }
+
+game();
