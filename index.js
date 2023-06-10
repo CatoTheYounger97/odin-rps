@@ -15,7 +15,7 @@ function playRPS( playerChoiceRaw, computerChoice )
     const playerChoice = playerChoiceRaw.charAt(0).toUpperCase() +  playerChoiceRaw.slice(1).toLowerCase();
 
     if (playerChoice === computerChoice)
-    return `You Draw! You both chose ${playerChoice}`;
+        return "draw";
 
     let winStatus = false;
 
@@ -36,28 +36,77 @@ function playRPS( playerChoiceRaw, computerChoice )
     }
     
     // return win status, player hand, computer hand.
-    if ( winStatus ) {
-        return `You Win! ${playerChoice} beats ${computerChoice}`;
+    if (  winStatus ) {
+        return "win";
     } else {
-        return `You Lose! ${computerChoice} beats ${playerChoice}`;
+        return "lose";
     }
 }
 
 function game()
 {
     const buttons = document.querySelectorAll("button");
-    
+
     buttons.forEach( (button) => {
         button.addEventListener('click', () => {
 
-            const displayResult = document.querySelector(".result")
+            const playerChoice = button.textContent;
+            const computerChoice = getComputerChoice();
+            let gameResult = playRPS( playerChoice, computerChoice );
 
-            displayResult.textContent = playRPS( button.textContent, getComputerChoice() ); 
+            let playerScore = 0;
+            let computerScore = 0;
+
+            displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore);
+
+            
+            // if (playerScore >= 5) {
+
+            //     alert("game over")
+            //     resetGame();
+            // }
+            // if (computerScore >= 5) {
+            //     alert("game over");
+            //     resetGame();
+
+            // }
         });
-
     });
-    
+}
+function displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore)
+{
+    const displayResult = document.querySelector(".Result");
+    const displayPlayerScore = document.querySelector(".PlayerScore");
+    const displayCpuScore = document.querySelector(".CpuScore");
+
+    switch (gameResult)
+    {
+        case "draw":
+            displayResult.textContent = `You Draw! You both chose ${playerChoice}`;
+            break;
+
+        case "win":
+            displayResult.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
+            displayPlayerScore.textContent = playerScore;
+            break;
+
+        case "lose":
+            displayResult.textContent = `You Lose! ${computerChoice} beats ${playerChoice}`;
+            displayCpuScore.textContent = computerScore;
+            break;
+
+        default: 
+            displayResult.textContent = "something is wrong";
+
+    }
 
 }
+function resetGame()
+{
+    document.querySelector(".Result").textContent = "";
+    document.querySelector(".PlayerScore").textContent = "";
+    document.querySelector(".CpuScore").textContent = "";
+}
+
 
 game();
