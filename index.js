@@ -47,33 +47,41 @@ function game()
 {
     const buttons = document.querySelectorAll("button");
 
+    let playerScore = 0;
+    let computerScore = 0;
+    let gameRound = 0;
+
     buttons.forEach( (button) => {
         button.addEventListener('click', () => {
 
             const playerChoice = button.textContent;
             const computerChoice = getComputerChoice();
-            let gameResult = playRPS( playerChoice, computerChoice );
+            const gameResult = playRPS( playerChoice, computerChoice );
 
-            let playerScore = 0;
-            let computerScore = 0;
+            switch (gameResult)
+            {
+                case "win": ++playerScore; break;
+                case "lose": ++computerScore; break;
+            }
+            ++gameRound;
 
-            displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore);
+            displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore, gameRound);
 
-            
-            // if (playerScore >= 5) {
+            if (computerScore >= 5 || playerScore >= 5) {
+                let winner = (computerScore > playerScore ? "Computer" : "Player");
+                alert(`${winner} wins in ${gameRound} rounds!`);
+                
+                resetDisplay();
+                playerScore = 0;
+                computerScore = 0;
+                gameRound = 0;
+            }
 
-            //     alert("game over")
-            //     resetGame();
-            // }
-            // if (computerScore >= 5) {
-            //     alert("game over");
-            //     resetGame();
-
-            // }
         });
     });
+
 }
-function displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore)
+function displayGame(playerChoice, computerChoice, gameResult, playerScore, computerScore, gameRound)
 {
     const displayResult = document.querySelector(".Result");
     const displayPlayerScore = document.querySelector(".PlayerScore");
@@ -97,15 +105,18 @@ function displayGame(playerChoice, computerChoice, gameResult, playerScore, comp
 
         default: 
             displayResult.textContent = "something is wrong";
-
     }
 
+    const displayRound = document.querySelector(".Round");
+    displayRound.textContent = gameRound;
 }
-function resetGame()
+
+function resetDisplay()
 {
     document.querySelector(".Result").textContent = "";
     document.querySelector(".PlayerScore").textContent = "";
     document.querySelector(".CpuScore").textContent = "";
+    document.querySelector('.Round').textContent = "";
 }
 
 
